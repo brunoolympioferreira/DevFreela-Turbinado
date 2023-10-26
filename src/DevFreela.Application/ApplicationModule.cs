@@ -11,18 +11,19 @@ namespace DevFreela.Application
 {
     public static class ApplicationModule
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services) {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
             services
-                .AddMediatR(typeof(CreateProjectCommand))
-                .AddConsumers();
+                .AddMediatR(typeof(CreateProjectCommand));
+                //.AddConsumers();
 
             return services;
         }
 
-        private static IServiceCollection AddConsumers(this IServiceCollection services) {
-            services.AddHostedService<PaymentApprovedConsumer>();
-            
-            return services;
-        }
+        //private static IServiceCollection AddConsumers(this IServiceCollection services) {
+        //    services.AddHostedService<PaymentApprovedConsumer>();
+
+        //    return services;
+        //}
     }
 }
