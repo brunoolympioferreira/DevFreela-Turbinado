@@ -7,10 +7,7 @@ using DevFreela.Application.Commands.UpdateProject;
 using DevFreela.Application.Queries.GetAllProjects;
 using DevFreela.Application.Queries.GetProjectById;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DevFreela.API.Controllers
 {
@@ -26,11 +23,9 @@ namespace DevFreela.API.Controllers
         // api/projects?query=net core
         [HttpGet]
         //[Authorize(Roles = "client, freelancer")]
-        public async Task<IActionResult> Get(string query)
+        public async Task<IActionResult> Get(GetAllProjectsQuery getAllProjectsQuery)
         {
-            var getAllProjectsQuery = new GetAllProjectsQuery(query);
-
-            var projects = await _mediator.Send(getAllProjectsQuery); 
+            var projects = await _mediator.Send(getAllProjectsQuery);
 
             return Ok(projects);
         }
