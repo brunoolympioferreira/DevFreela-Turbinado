@@ -17,6 +17,17 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task AddSkillFromProject(Project project)
+        {
+            var words = project.Description.Split(' ');
+            var lenght = words.Length;
+
+            var skill = $"{project.Id} - {words[lenght - 1]}";
+            // "1 - Marketplace"
+
+            await _dbContext.Skills.AddAsync(new Skill(skill));
+        }
+
         public async Task<List<Skill>> GetAllAsync()
         {
             return await _dbContext.Skills.ToListAsync();
