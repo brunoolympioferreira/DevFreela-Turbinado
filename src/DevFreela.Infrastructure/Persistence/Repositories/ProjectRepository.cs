@@ -66,12 +66,20 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
 
         public async Task<Project> GetByIdAsync(int id)
         {
-            return await _dbContext.Projects.SingleOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.Projects
+                .AsNoTracking()
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task AddCommentAsync(ProjectComment projectComment)
         {
             await _dbContext.ProjectComments.AddAsync(projectComment);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Project project)
+        {
+            _dbContext.Projects.Update(project);
             await _dbContext.SaveChangesAsync();
         }
     }
